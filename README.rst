@@ -1,24 +1,16 @@
 {fmt}
 =====
 
-.. image:: https://travis-ci.org/fmtlib/fmt.png?branch=master
-   :target: https://travis-ci.org/fmtlib/fmt
-
-.. image:: https://ci.appveyor.com/api/projects/status/ehjkiefde6gucy1v
-   :target: https://ci.appveyor.com/project/vitaut/fmt
-
-.. image:: https://oss-fuzz-build-logs.storage.googleapis.com/badges/libfmt.svg
-   :alt: fmt is continuously fuzzed at oss-fuzz
-   :target: https://bugs.chromium.org/p/oss-fuzz/issues/list?\
-            colspec=ID%20Type%20Component%20Status%20Proj%20Reported%20Owner%20\
-            Summary&q=proj%3Dlibfmt&can=1
-
-.. image:: https://img.shields.io/badge/stackoverflow-fmt-blue.svg
-   :alt: Ask questions at StackOverflow with the tag fmt
-   :target: https://stackoverflow.com/questions/tagged/fmt
-
 **{fmt}** is an open-source formatting library for C++.
 It can be used as a safe and fast alternative to (s)printf and iostreams.
+
+**This is a fork to build fmt for NetBurner MOD5441X**
+
+How to build::
+
+  mkdir build && cd build
+  cmake -Wdev -G "Unix Makefiles" -DCMAKE_BUILD_YPE=Release -DCMAKE_TOOLCHAIN_FILE=../m68k-unknown-elf.cmake ..
+  make fmt
 
 `Documentation <https://fmt.dev>`__
 

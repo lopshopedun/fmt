@@ -5,6 +5,11 @@ if(${CMAKE_VERSION} VERSION_LESS 3.12)
   cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
 endif()
 
+# For NetBurner MOD5441X
+if ($ENV{NBROOT} STREQUAL "C:\\nburn")
+    set(CMAKE_NBROOT "C:/nburn")
+endif()
+
 # Determine if fmt is built as a subproject (using add_subdirectory)
 # or if it is the master project.
 set(MASTER_PROJECT OFF)
@@ -61,9 +66,9 @@ option(FMT_WERROR "Halt the compilation with an error on compiler warnings."
        OFF)
 
 # Options that control generation of various targets.
-option(FMT_DOC "Generate the doc target." ${MASTER_PROJECT})
-option(FMT_INSTALL "Generate the install target." ${MASTER_PROJECT})
-option(FMT_TEST "Generate the test target." ${MASTER_PROJECT})
+option(FMT_DOC "Generate the doc target." OFF)
+option(FMT_INSTALL "Generate the install target." OFF)
+option(FMT_TEST "Generate the test target." OFF)
 option(FMT_FUZZ "Generate the fuzz target." OFF)
 option(FMT_CUDA_TEST "Generate the cuda-test target." OFF)
 option(FMT_OS "Include core requiring OS (Windows/Posix) " ON)
@@ -193,6 +198,9 @@ endif ()
 
 add_library(fmt ${FMT_SOURCES} ${FMT_HEADERS} README.rst ChangeLog.rst)
 add_library(fmt::fmt ALIAS fmt)
+
+# specific macros for m68k-unknown-gcc 5.2.0 to enable std::to_string()
+target_compile_definitions(fmt PUBLIC _GLIBCXX_USE_C99_DYNAMIC _GLIBCXX_USE_C99)
 
 if (HAVE_STRTOD_L)
   target_compile_definitions(fmt PUBLIC FMT_LOCALE)
